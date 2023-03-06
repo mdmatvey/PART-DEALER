@@ -146,8 +146,8 @@ const SortdBar = observer(({ setIsProductsLoading }) => {
                             >
                                 цена
                                 <BsCaretDownFill id='price-caret' style={{ ...priceCaretDisplay, fontSize: '1rem', transition: '.2s' }} />
-                                <span className='nbsp' style={nbspDisplay}>&nbsp;&nbsp;&nbsp;</span>
                             </Button>
+                            <span className='nbsp' style={nbspDisplay}>&nbsp;&nbsp;&nbsp;</span>
                             <Button
                                 onClick={() => popularitySort()}
                                 style={{ ...TEXTBUTTON_STYLE, color: 'gray' }}
