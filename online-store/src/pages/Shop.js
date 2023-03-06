@@ -3,13 +3,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Context } from '..'
 import SortBar from '../components/SortBar'
-import { fetchBrands, fetchCategories, fetchProducts } from '../components/http/productAPI'
+import { fetchBrands, fetchCategories, fetchProducts, searchProducts } from '../components/http/productAPI'
 import Pages from '../components/Pages'
 import ProductList from '../components/ProductList'
 import FilterBar from '../components/FilterBar'
-import ResponsiveStyles from '../styles/ResponsiveStyles.css'
+import '../styles/ResponsiveStyles.css'
+import { useLocation } from 'react-router-dom'
 
 const Shop = observer(() => {
+  const location = useLocation()
+
   const { product } = useContext(Context)
   const [isCategoriesLoading, setIsCategoriesIsLoading] = useState(true)
   const [isBrandsLoading, setIsBrandsIsLoading] = useState(true)
@@ -28,12 +31,21 @@ const Shop = observer(() => {
         setIsBrandsIsLoading(false)
       })
 
-    fetchProducts(null, null, 1, product.limit)
-      .then(data => {
-        product.setProducts(data)
-        setIsProductsLoading(false)
-        // product.setTotalCount(data.length)
-      })
+    location.state.searchQuery
+      ? searchProducts(location.state.searchQuery)
+        .then(data => {
+          product.setProducts(data)
+          setIsProductsLoading(false)
+          product.setTotalCount(data.length)
+
+          console.log(location.state.searchQuery)
+        })
+      : fetchProducts(null, null, 1, product.limit)
+        .then(data => {
+          product.setProducts(data)
+          setIsProductsLoading(false)
+          product.setTotalCount(data.length)
+        })
   }, [])
 
   useEffect(() => {

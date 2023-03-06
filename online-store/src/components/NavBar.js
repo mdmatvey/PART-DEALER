@@ -12,9 +12,9 @@ import { FaTelegram, FaWhatsapp, FaRegUser } from 'react-icons/fa'
 import { TbShoppingCart } from 'react-icons/tb'
 import { GoSearch } from 'react-icons/go'
 import { BiLogIn, BiLogOut } from 'react-icons/bi'
-import BootstrapReStyles from '../styles/BootstrapReStyles.css'
-import NavbarStyles from '../styles/NavbarStyles.css'
-import EventStyles from '../styles/EventStyles.css'
+import '../styles/BootstrapReStyles.css'
+import '../styles/NavbarStyles.css'
+import '../styles/EventStyles.css'
 
 const NavBar = observer(() => {
   const { user, cart } = useContext(Context)
@@ -25,8 +25,13 @@ const NavBar = observer(() => {
   const [query, setQuery] = useState('')
 
   const searchAPI = searchQuery => {
-    console.log(searchQuery)
-    navigate(SHOP_ROUTE)
+    window.scrollTo(0, 0)
+    navigate(SHOP_ROUTE, {
+      state: {
+        searchQuery
+      }
+    })
+    setQuery('')
   }
 
   const logOut = () => {

@@ -110,7 +110,10 @@ export const fetchProducts = async (categoryId, brandId, page, limit = 8) => {
 
   const response = await fetch('https://fakestoreapi.com/products?limit=' + limit)
   const responseJSON = await response.json()
+
+  /* TEMPORARY CODE */
   responseJSON.map(product => product.count = 1)
+  /* TEMPORARY CODE */
 
   return responseJSON
 
@@ -127,4 +130,11 @@ export const fetchOneProduct = async (id) => {
   return responseJSON
 
   // return data
+}
+
+export const searchProducts = async (searchQuery) => {
+  const response = await fetch('https://fakestoreapi.com/products?query=' + searchQuery)
+  const responseJSON = await response.json()
+
+  return responseJSON
 }
