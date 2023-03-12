@@ -31,7 +31,7 @@ const Shop = observer(() => {
         setIsBrandsIsLoading(false)
       })
 
-    location.state.searchQuery
+    location.state
       ? searchProducts(location.state.searchQuery)
         .then(data => {
           product.setProducts(data)
